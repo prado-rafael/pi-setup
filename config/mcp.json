@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "atlassian": {
+      "url": "https://mcp.atlassian.com/v1/mcp",
+      "exposure": "codemode",
+      "description": "Atlassian Jira and Confluence"
+    },
+    "datadog": {
+      "url": "https://mcp.datadoghq.eu/v1/mcp?toolsets=core,code-exec&omit_tools=upsert_datadog_dashboard,delete_datadog_dashboard,create_datadog_notebook,edit_datadog_notebook,ask_widget_expert,get_widget_reference",
+      "exposure": "codemode",
+      "toolExposure": {
+        "_dd_*": "hidden",
+        "create_*": "hidden",
+        "edit_*": "hidden",
+        "upsert_*": "hidden",
+        "delete_*": "hidden"
+      },
+      "description": "Query Datadog logs, metrics, traces, and dashboards"
+    }
+  }
+}

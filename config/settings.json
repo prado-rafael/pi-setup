@@ -1,0 +1,31 @@
+{
+  "defaultProvider": "github-copilot",
+  "defaultModel": "gpt-6.1-sol",
+  "defaultThinkingLevel": "high",
+  "tuiMode": "regular",
+  "defaultTools": [
+    "+codemode"
+  ],
+  "enabledModels": [
+    "github-copilot/gpt-6-luna",
+    "github-copilot/gpt-6.1-sol"
+  ],
+  "compaction": {
+    "enabled": true,
+    "reserveTokens": 40000,
+    "modelOverrides": {
+      "github-copilot/gpt-6-astra": {
+        "reserveTokens": 50000
+      },
+      "github-copilot/gpt-6-luna": {
+        "reserveTokens": 50000
+      },
+      "github-copilot/gpt-6.1-sol": {
+        "reserveTokens": 50000
+      }
+    }
+  },
+  "packages": [
+    "npm:pi-memory@0.4.2"
+  ]
+}

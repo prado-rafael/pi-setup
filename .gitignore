@@ -1,0 +1,16 @@
+# Never commit pi state, credentials, or local overrides.
+node_modules/
+.pi/
+.pi-setup/
+.env
+.env.*
+!.env.example
+**/auth.json
+**/mcp-auth.json
+**/models-store.json
+**/trust.json
+**/sessions/
+**/memory/
+**/backups/
+*.local.json
+.DS_Store

@@ -1,0 +1,12 @@
+{
+  "name": "rafael-pi-setup",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "check": "node scripts/pi-setup.mjs check"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  }
+}
