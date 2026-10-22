@@ -15,5 +15,11 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: npm run check
+      - name: Install the pinned test runtime
+        run: |
+          version="$(node -p "require('./versions.json').pi")"
+          npm install --prefix "$RUNNER_TEMP/pi-runtime" --ignore-scripts --omit=dev --no-audit --no-fund --no-package-lock "@earendil-works/pi-coding-agent@$version"
       - run: npm test
+        env:
+          PI_TEST_RUNTIME: ${{ runner.temp }}/pi-runtime
       - run: bash -n install.sh
