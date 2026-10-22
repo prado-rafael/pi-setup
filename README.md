@@ -82,6 +82,8 @@ Pi is pinned to `1.1.0`, and `pi-memory` to `0.4.2`. Change the versions here an
 
 The `pi-memory` extension works without extra dependencies for basic memory operations. Its search feature additionally requires qmd (`npm install -g @tobilu/qmd`), which is optional and may download large embedding models. Memory contents are not synchronized by this setup.
 
+The setup also installs `pi-btw` (`pi install npm:pi-btw`) for `/btw` side conversations. It is not version-pinned and is reconciled when you explicitly run the installer/update command.
+
 ## Local exceptions
 
 Optional: put environment-specific JSON overrides in `~/.pi/agent/.pi-setup/overrides/`, using the corresponding configuration filename. For example, `overrides/settings.json`:
