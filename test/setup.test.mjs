@@ -93,6 +93,20 @@ test('apply backs up existing files, preserves private state, and is idempotent'
   assert.equal(fs.statSync(path.join(setup.agent, 'settings.json')).mtimeMs, before);
 });
 
+test('the bundled input-attention extension is applied as a complete, idempotent resource', t => {
+  const { setup } = fixture(t);
+  const source = fileURLToPath(new URL('../config/extensions/input-attention/', import.meta.url));
+  fs.cpSync(source, path.join(setup.root, 'config/extensions/input-attention'), { recursive: true });
+  assert.equal(setup.apply(), 6);
+  const files = ['README.md', 'attention-input.ts', 'index.ts'];
+  for (const file of files) {
+    assert.equal(get(path.join(setup.agent, 'extensions/input-attention', file)), get(path.join(source, file)));
+  }
+  assert.deepEqual(json(path.join(setup.state, 'managed.json')).filter(file => file.startsWith('extensions/input-attention/')).sort(),
+    files.map(file => `extensions/input-attention/${file}`));
+  assert.equal(setup.apply(), 0);
+});
+
 test('binary skill resources and executable permissions are preserved', t => {
   const { setup } = fixture(t);
   const bytes = Buffer.from([0, 255, 128, 42, 13, 10]);

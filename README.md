@@ -72,6 +72,7 @@ git push
 | `config/models.json` | Context window overrides |
 | `config/mcp.json` | Atlassian and Datadog MCP servers |
 | `config/extensions/ccstatusline.ts` | Custom status footer |
+| `config/extensions/input-attention/` | Full yellow-screen agent questions and waiting/completion indicators |
 | `versions.json` | Exact pi version to install |
 
 You can also add `config/keybindings.json`, `config/AGENTS.md`, `config/APPEND_SYSTEM.md`, and resources under `config/extensions/`, `config/skills/`, `config/prompts/`, or `config/themes/`.
@@ -83,6 +84,19 @@ Pi is pinned to `1.1.0`, and `pi-memory` to `0.4.2`. Change the versions here an
 The `pi-memory` extension works without extra dependencies for basic memory operations. Its search feature additionally requires qmd (`npm install -g @tobilu/qmd`), which is optional and may download large embedding models. Memory contents are not synchronized by this setup.
 
 The setup also installs `pi-btw` (`pi install npm:pi-btw`) for `/btw` side conversations. It is not version-pinned and is reconciled when you explicitly run the installer/update command.
+
+## Required-input alert
+
+The bundled [input-attention extension](config/extensions/input-attention/README.md)
+adds `request_user_input` for questions that block the agent. Those questions fill
+the visible Pi viewport with a yellow background and dark text. Enter submits the
+answer; Escape cancels and restores the conversation. Page Up/Page Down scroll
+long questions. The extension does not change the terminal palette or saved theme.
+
+Apply the setup and run `/reload`, then `/input-alert-test` to try it without a
+model call. Other extensions' native dialogs retain their UI and show the waiting
+indicator. Ordinary text questions do not trigger the yellow screen; the agent
+must use the tool. Labels are Portuguese to match this personal configuration.
 
 ## Local exceptions
 
@@ -137,4 +151,20 @@ npm test
 bash -n install.sh
 ```
 
-Tests use temporary directories, local Git remotes, and simulated runtimes, without touching your installation or credentials. CI runs on Linux and macOS with Node 22 and 24.
+The extension tests use the pinned Pi runtime installed by this setup. To test a
+fresh checkout without installing or changing your personal configuration, use
+an isolated runtime instead:
+
+```bash
+runtime="$(mktemp -d)"
+version="$(node -p "require('./versions.json').pi")"
+npm install --prefix "$runtime" --ignore-scripts --omit=dev --no-audit --no-fund --no-package-lock "@earendil-works/pi-coding-agent@$version"
+PI_TEST_RUNTIME="$runtime" npm test
+rm -rf "$runtime"
+```
+
+Setup tests use temporary directories, local Git remotes, and simulated runtimes.
+Extension tests use the real loader, runner, and input component from the pinned
+runtime with a simulated terminal UI. Tests do not touch your installation or
+credentials. CI installs an isolated test runtime and runs on Linux and macOS
+with Node 22 and 24.
