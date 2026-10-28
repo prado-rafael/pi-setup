@@ -85,6 +85,8 @@ The `pi-memory` extension works without extra dependencies for basic memory oper
 
 The setup also installs `pi-btw` (`pi install npm:pi-btw`) for `/btw` side conversations. It is not version-pinned and is reconciled when you explicitly run the installer/update command.
 
+The setup installs `@juicesharp/rpiv-todo` (`pi install npm:@juicesharp/rpiv-todo`) for a persistent task-list panel and the `/todos` command. It is not version-pinned and is reconciled on explicit installs/updates. Restart Pi after installation, then run `/todos` to confirm it loaded. Press `ctrl+shift+t` to collapse or expand the panel.
+
 ## Required-input alert
 
 The bundled [input-attention extension](config/extensions/input-attention/README.md)

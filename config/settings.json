@@ -27,6 +27,7 @@
   },
   "packages": [
     "npm:pi-memory@0.4.2",
-    "npm:pi-btw"
+    "npm:pi-btw",
+    "npm:@juicesharp/rpiv-todo"
   ]
 }
